@@ -36,29 +36,4 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     }
     
   }
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  // ...
-  
-  // 是否预取的逻辑
-  io.prefetch_valid := // ...
 }
