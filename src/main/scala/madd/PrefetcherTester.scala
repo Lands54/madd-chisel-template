@@ -39,7 +39,7 @@ class PrefetcherTester(dut: StridePrefetcher)extends PeekPokeTester(dut) {
   println("0,8,16..FULLRATE%.f%",ful.toDouble / 128.0)
 }
 
-object PrefetchTester extends App {
+object PrefetcherTester extends App {
   chisel3.iotesters.Driver(() => new StridePrefetcher(32, 64) { dut =>
     new PrefetcherTester(dut)}
   )
