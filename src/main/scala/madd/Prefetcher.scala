@@ -1,6 +1,6 @@
 import chisel3._
 import chisel3.util._
-class list extends(val addressWidth: Int, val pcWidth: Int) extends Bundle{
+class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   val PCS = UInt(pcWidth.W)
   val ADS = UInt(addressWidth.W)
   val PDS = UInt(addressWidth.W)
