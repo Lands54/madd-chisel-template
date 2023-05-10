@@ -42,5 +42,5 @@ class PrefetcherTester(dut: Prefetcher)extends PeekPokeTester(dut) {
 object PrefetchTester extends App {
   chisel3.iotesters.Driver(() => new StridePrefetcher(32, 64) { dut =>
     new PrefetcherTester(dut)
-  }
+  )
 }
