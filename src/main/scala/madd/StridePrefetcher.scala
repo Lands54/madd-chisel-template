@@ -1,10 +1,6 @@
 import chisel3._
 import chisel3.util._
-class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
-  val PCS = UInt(pcWidth.W)
-  val ADS = UInt(addressWidth.W)
-  val PDS = UInt(addressWidth.W)
-}
+
 class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   val io = IO(new Bundle {
     val pc = Input(UInt(pcWidth.W))
@@ -12,7 +8,11 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val prefetch_address = Output(UInt(addressWidth.W))
     val prefetch_valid = Output(Bool())
   })
-
+class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
+  val PCS = UInt(pcWidth.W)
+  val ADS = UInt(addressWidth.W)
+  val PDS = UInt(addressWidth.W)
+}
   val count = RegInit(0.U(32.W))
   when(count >= 10240.U) {
     count := count % 10240.U
