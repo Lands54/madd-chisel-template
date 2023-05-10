@@ -5,8 +5,8 @@ import chisel3.iotesters.PeekPokeTester
 import chisel3.util._
 
 class PrefetcherTester(dut: Prefetcher)extends PeekPokeTester(dut) {
-  var acc = 0.U
-  var ful = 0.U
+  val acc = 0.U
+  val ful = 0.U
   for(i <-0 to 1024 by 4)
   {
   poke(dut.io.pc, i)
