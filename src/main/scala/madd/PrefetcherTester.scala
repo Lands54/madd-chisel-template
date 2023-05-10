@@ -15,7 +15,7 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   when(peek(dut.io.prefetch_address)==i+4.U){
     acc := acc + 1.U
   }
-  when(peek(dut.io.prefetch_valid)==true.B){
+  when(peek(dut.io.prefetch_valid)==1.U){
     ful := ful + 1.U
   }
   }
@@ -31,7 +31,7 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   when(peek(dut.io.prefetch_address)==i+8.U){
     acc := acc + 1.U
   }
-  when(peek(dut.io.prefetch_valid)==true.B){
+  when(peek(dut.io.prefetch_valid)==1.U){
     ful := ful + 1.U
   }
   }
