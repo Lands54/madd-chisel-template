@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.iotesters.PeekPokeTester
 import chisel3.util._
 
-class MatrixAddition3Tester(dut: MatrixAddition3)
+class PrefetcherTester(dut: Prefetcher)
     extends PeekPokeTester(dut) {
   poke(dut.io.in.valid, true)
 
