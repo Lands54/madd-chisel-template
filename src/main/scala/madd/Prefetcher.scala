@@ -24,7 +24,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   file(count).PDS := 0.U
   when(count > 0.U) {
     file(count).PDS := file(count).ADS - file(count - 1.U).ADS
-    when(file(count).PDS == file(count - 1.U).PDS) {
+    when(file(count).PDS === file(count - 1.U).PDS) {
       io.prefetch_address := file(count).ADS + file(count).PDS
       io.prefetch_valid := true.B
     }.otherwise {
