@@ -5,8 +5,8 @@ import chisel3.iotesters.PeekPokeTester
 import chisel3.util._
 
 class PrefetcherTester(dut: Prefetcher)extends PeekPokeTester(dut) {
-  val acc = 0.U
-  val ful = 0.U
+  var acc = 0.U
+  var ful = 0.U
   for(i <-0 to 1024 by 4)
   {
   poke(dut.io.pc, i)
@@ -37,7 +37,7 @@ class PrefetcherTester(dut: Prefetcher)extends PeekPokeTester(dut) {
   }
   println("0,8,16..ACCURATE%.f%",acc.toDouble / 128.0)
   println("0,8,16..FULLRATE%.f%",ful.toDouble / 128.0)
-  
+}
 
 object PrefetchTester extends App {
   chisel3.iotesters.Driver(() => new StridePrefetcher(32, 64) { dut =>
