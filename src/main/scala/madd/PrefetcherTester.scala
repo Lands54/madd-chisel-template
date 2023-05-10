@@ -7,7 +7,7 @@ import chisel3.util._
 class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = 0.U
   var ful = 0.U
-  for(i <-0 to 1024 by 4)
+  for(i <-0.W to 1024.W by 4.W)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
@@ -23,7 +23,7 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   println("0,4,8..FULLRATE%.f%",ful.toDouble / 256.0)
   acc := 0.U
   ful := 0.U
-  for(i <-0 to 1024 by 8)
+  for(i <-0.W to 1024.W by 8.W)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
