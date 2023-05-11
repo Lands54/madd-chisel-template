@@ -51,8 +51,8 @@ class StridePrefetcherSpec extends ChiselFlatSpec {
   }
 }
 
-object PrefetcherTester extends App {
-  chisel3.iotesters.Driver(() => new StridePrefetcher(32, 64) { dut =>
-    new PrefetcherTester(dut)}
-  )
+object StridePrefetcherTest extends App {
+  iotesters.Driver.execute(Array(), () => new StridePrefetcher(32, 32)) {
+    c => new StridePrefetcherTester(c)
+  }
 }
