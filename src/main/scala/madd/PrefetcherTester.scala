@@ -1,8 +1,8 @@
 package madd
 
 import chisel3._
-import chisel3.iotesters.PeekPokeTester
 import chisel3.util._
+import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = 0.U
