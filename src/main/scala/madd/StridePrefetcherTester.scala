@@ -45,14 +45,14 @@ class StridePrefetcherSpec extends ChiselFlatSpec {
   private val backendName = "firrtl"
 
   "StridePrefetcher" should s"work correctly with $backendName backend" in {
-    Driver(() => new StridePrefetcher(addressWidth, pcWidth), backendName) { c =>
-      new StridePrefetcherTester(c)
+    Driver(() => new StridePrefetcher(addressWidth, pcWidth), backendName) { dut =>
+      new StridePrefetcherTester(dut)
     } should be(true)
   }
 }
 
 object StridePrefetcherTest extends App {
   iotesters.Driver.execute(Array(), () => new StridePrefetcher(32, 32)) {
-    c => new StridePrefetcherTester(c)
+    dut => new StridePrefetcherTester(dut)
   }
 }
