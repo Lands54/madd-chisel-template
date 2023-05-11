@@ -15,7 +15,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   if(peek(dut.io.prefetch_address)==i+4.U){
     acc := acc + 1.U
   }
-  if(peek(dut.io.prefetch_valid)==i+4.U){
+  if(peek(dut.io.prefetch_valid)==1.U){
     ful := ful + 1.U
   }
   }
