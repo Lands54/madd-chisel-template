@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
-class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
+class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = 0.U
   var ful = 0.U
   for(i <-0.U to 1024.U by 4.U)
