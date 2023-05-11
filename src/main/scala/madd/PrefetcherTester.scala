@@ -12,7 +12,7 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
   step(1)
-  if(peek(dut.io.prefetch_address)==BigInt(i+4.U)){
+  if(peek(dut.io.prefetch_address)==i+4.U){
     acc := acc + 1.U
   }
   if(peek(dut.io.prefetch_valid)==BigInt(i+4.U)){
