@@ -19,8 +19,8 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
     ful := ful + 1.U
   }
   }
-  println("0,4,8..ACCURATE%.f%",acc*1.0/256.0)
-  println("0,4,8..FULLRATE%.f%",ful*1.0/256.0)
+  println("0,4,8..ACCURATE is %f%",acc*1.0/256.0)
+  println("0,4,8..FULLRATE is %f%",ful*1.0/256.0)
   acc := 0.U
   ful := 0.U
   for(i <-0.U to 1024.U by 8.U)
@@ -35,8 +35,8 @@ class PrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
     ful := ful + 1.U
   }
   }
-  println("0,8,16..ACCURATE%.f%",acc*1.0/128.0)
-  println("0,8,16..FULLRATE%.f%",ful*1.0/128.0)
+  println("0,8,16..ACCURATE is %f%",acc*1.0/128.0)
+  println("0,8,16..FULLRATE is %f%",ful*1.0/128.0)
 }
 
 object PrefetcherTester extends App {
