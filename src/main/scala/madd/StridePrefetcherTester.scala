@@ -19,8 +19,8 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
     ful := ful + 1.U
   }
   }
-  println("0,4,8..ACCURATE is %f%".format(acc.toDouble/256.0))
-  println("0,4,8..FULLRATE is %f%".format(ful.toDouble/256.0))
+  println("0,4,8..ACCURATE is %f%%".format(acc.toDouble/256.0))
+  println("0,4,8..FULLRATE is %f%%".format(ful.toDouble/256.0))
   acc := 0.U
   ful := 0.U
   for(i <-0.U to 1024.U by 8.U)
