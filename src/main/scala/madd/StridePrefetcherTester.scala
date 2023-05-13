@@ -9,8 +9,8 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var ful = BigInt(0)
   for(i <-4.U to 32.U by 4.U)
   {
-  dut.io.pc.poke(i.U)
-  dut.io.address.poke(i.U)
+  poke(dut.io.pc,i)
+  poke(dut.io.address,i)
   println("%d".format(peek(dut.io.prefetch_address)))
   println("%d".format(peek(dut.io.prefetch_valid)))
   step(1)
