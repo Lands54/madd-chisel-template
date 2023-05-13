@@ -22,9 +22,9 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   }
 
   var file = Reg(Vec(1024,new list(addressWidth,pcWidth)))
-  file(count).PCS := io.pc
-  file(count).ADS := io.address
-  file(count).PDS := 0.U
+  file[count].PCS := io.pc
+  file[count].ADS := io.address
+  file[count].PDS := 0.U
   when(count > 0.U) {
     file(count).PDS := file(count).ADS - file(count - 1.U).ADS
     when(file(count).PDS === file(count - 1.U).PDS) {
@@ -32,7 +32,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
       io.prefetch_valid := 1.U
     }.otherwise {
       io.prefetch_address := file(count).ADS + file(count).PDS
-      io.prefetch_valid := 1.U
+      io.prefetch_valid := 0.U
     }
   }.otherwise {
     io.prefetch_address := 4.U
