@@ -11,6 +11,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val prefetch_address = Output(UInt(addressWidth.W))
     val prefetch_valid = Output(UInt(1.W))
   })
+  io.prefetch_valid := io.pc
 class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   var PCS = UInt(pcWidth.W)
   var ADS = UInt(addressWidth.W)
