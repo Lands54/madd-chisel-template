@@ -32,10 +32,10 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   when(count > 0.U) {
     when(file.read(count).PDS === file.read(count - 1.U).PDS) {
       io.prefetch_address := file.read(count).ADS + file.read(count).PDS
-      io.prefetch_valid := 1.U
+      io.prefetch_valid := file.read(count).ADS
     }.otherwise {
       io.prefetch_address := file.read(count).ADS + file.read(count).PDS
-      io.prefetch_valid := 0.U
+      io.prefetch_valid := file.read(count).ADS
     }
   }.otherwise {
     io.prefetch_address := 4.U
