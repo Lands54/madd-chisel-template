@@ -11,7 +11,11 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
+  println("%d".format(peek(dut.io.prefetch_address)))
+  println("%d".format(peek(dut.io.prefetch_vaild)))
   step(1)
+  println("%d".format(peek(dut.io.prefetch_address)))
+  println("%d".format(peek(dut.io.prefetch_vaild)))
   if(peek(dut.io.prefetch_address)==i+(4.U).litValue()){
     acc = acc + 1
   }
