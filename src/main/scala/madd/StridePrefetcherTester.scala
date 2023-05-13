@@ -35,8 +35,8 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
     ful := ful + 1.U
   }
   }
-  println("0,8,16..ACCURATE is %f%".format(acc.toDouble/128.0))
-  println("0,8,16..FULLRATE is %f%".format(ful.toDouble/128.0))
+  println("0,8,16..ACCURATE is %f%%".format(acc.toDouble/128.0))
+  println("0,8,16..FULLRATE is %f%%".format(ful.toDouble/128.0))
 }
 class StridePrefetcherSpec extends ChiselFlatSpec {
   private val addressWidth = 32
