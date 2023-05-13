@@ -20,22 +20,16 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   when(count >= 1024.U) {
     count := 0.U
   }
-  var file = Mem(1024,new list(addressWidth,pcWidth))
-  var newData = Reg(new list(addressWidth, pcWidth))
-  newData.PCS := io.pc
-  newData.ADS := io.address
-  when(count > 0.U){
-  newData.PDS := file.read(count).ADS - file.read(count - 1.U).ADS
-  }.otherwise{
-  newData.PDS =0.U}  
-  file.write(count,newData)
+  var file = Reg(1024,new list(addressWidth,pcWidth))
+
   when(count > 0.U) {
-    when(file.read(count).PDS === file.read(count - 1.U).PDS) {
-      io.prefetch_address := file.read(count).ADS + file.read(count).PDS
-      io.prefetch_valid := file.read(count).ADS
+    file(count).PDS := file(count).ADS - file(count-1.U).ADS
+    when(file(count).PDS === file(count - 1.U).PDS) {
+      io.prefetch_address := file(count).ADS + file(count).PDS
+      io.prefetch_valid := file(count).ADS
     }.otherwise {
-      io.prefetch_address := file.read(count).ADS + file.read(count).PDS
-      io.prefetch_valid := file.read(count).ADS
+      io.prefetch_address := file(count).ADS + file(count).PDS
+      io.prefetch_valid := file(count).ADS
     }
   }.otherwise {
     io.prefetch_address := 4.U
