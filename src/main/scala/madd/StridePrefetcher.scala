@@ -21,7 +21,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
     count := count % 1024.U
   }
 
-  var file = Reg(Vec(10240,new list(addressWidth,pcWidth)))
+  var file = Reg(Vec(1024,new list(addressWidth,pcWidth)))
   file(count).PCS := io.pc
   file(count).ADS := io.address
   file(count).PDS := 0.U
