@@ -14,11 +14,11 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   io.prefetch_valid := 0.U
   io.prefetch_address := 0.U
 class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
-  val PCS = UInt(pcWidth.W)
-  val ADS = UInt(addressWidth.W)
-  val PDS = UInt(addressWidth.W)
+  var PCS = UInt(pcWidth.W)
+  var ADS = UInt(addressWidth.W)
+  var PDS = UInt(addressWidth.W)
 }
-  val count = RegInit(0.U(32.W))
+  var count = RegInit(0.U(32.W))
   when(count >= 10240.U) {
     count := count % 10240.U
   }
