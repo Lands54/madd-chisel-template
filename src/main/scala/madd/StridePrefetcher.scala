@@ -19,7 +19,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
 }
   val count = RegInit(0.U(32.W))
   when(count >= 1024.U) {
-    count := count % 1024.U
+    count := 0.U
   }
 
   var file = Reg(Vec(1024,new list(addressWidth,pcWidth)))
