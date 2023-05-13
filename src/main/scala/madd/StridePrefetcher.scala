@@ -21,7 +21,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
     count := 0.U
   }
   var file = Mem(1024,new list(addressWidth,pcWidth))
-  val newData = new list(addressWidth, pcWidth)
+  var newData = Reg(new list(addressWidth, pcWidth))
   newData.PCS := io.pc
   newData.ADS := io.address
   newData.PDS := 0.U
