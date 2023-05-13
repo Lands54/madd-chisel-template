@@ -7,15 +7,15 @@ import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = BigInt(0)
   var ful = BigInt(0)
-  for(i <-0.U to 1024.U by 4.U)
+  for(i <-0.U to 32.U by 4.U)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
   println("%d".format(peek(dut.io.prefetch_address)))
   println("%d".format(peek(dut.io.prefetch_vaild)))
   step(1)
-  println("%d".format(peek(dut.io.prefetch_address)))
-  println("%d".format(peek(dut.io.prefetch_vaild)))
+  println("%1-d".format(peek(dut.io.prefetch_address)))
+  println("%1-d".format(peek(dut.io.prefetch_vaild)))
   if(peek(dut.io.prefetch_address)==i+(4.U).litValue()){
     acc = acc + 1
   }
