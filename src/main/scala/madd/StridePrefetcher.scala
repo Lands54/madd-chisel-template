@@ -20,8 +20,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   when(count >= 1024.U) {
     count := 0.U
   }
-  var file = Reg(1024,new list(addressWidth,pcWidth))
-
+  val file = RegInit(VecInit(Seq.fill(1024)(new list(addressWidth, pcWidth))))
   when(count > 0.U) {
     file(count).PDS := file(count).ADS - file(count-1.U).ADS
     when(file(count).PDS === file(count - 1.U).PDS) {
