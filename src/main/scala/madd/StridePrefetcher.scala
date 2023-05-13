@@ -24,16 +24,17 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   var newData = Reg(new list(addressWidth, pcWidth))
   newData.PCS := io.pc
   newData.ADS := io.address
-  newData.PDS := 0.U
+  when(count > 0.U){
+  newData.PDS := file.read(count).ADS - file.read(count - 1.U).ADS
+  }.otherwise{
+  newData.PDS =0.U}  
   file.write(count,newData)
   when(count > 0.U) {
-    newData.PDS := file.read(count).ADS - file.read(count - 1.U).ADS
-    file.write(count,newData)
     when(file.read(count).PDS === file.read(count - 1.U).PDS) {
       io.prefetch_address := file.read(count).ADS + file.read(count).PDS
       io.prefetch_valid := 1.U
     }.otherwise {
-      io.prefetch_address := file(count).ADS + file(count).PDS
+      io.prefetch_address := file.read(count).ADS + file.read(count).PDS
       io.prefetch_valid := 0.U
     }
   }.otherwise {
