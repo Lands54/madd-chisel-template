@@ -25,10 +25,10 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   newData.PCS := io.pc
   newData.ADS := io.address
   newData.PDS := 0.U
-  file.write(count,newDate)
+  file.write(count,newData)
   when(count > 0.U) {
-    newDate.PDS := file.read(count).ADS - file.read(count - 1.U).ADS
-    file.write(count,newDate)
+    newData.PDS := file.read(count).ADS - file.read(count - 1.U).ADS
+    file.write(count,newData)
     when(file.read(count).PDS === file.read(count - 1.U).PDS) {
       io.prefetch_address := file.read(count).ADS + file.read(count).PDS
       io.prefetch_valid := 1.U
