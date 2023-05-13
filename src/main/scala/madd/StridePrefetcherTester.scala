@@ -5,34 +5,35 @@ import chisel3.util._
 import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
-  var acc = 0.U
-  var ful = 0.U
+  var acc = BigInt(0)
+  var ful = BigInt(0)
   for(i <-0.U to 1024.U by 4.U)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
   step(1)
   if(peek(dut.io.prefetch_address)==i+4.U){
-    acc := acc + 1.U
+    acc = acc + 1
   }
   if(peek(dut.io.prefetch_valid)==1.U){
-    ful := ful + 1.U
+    ful = ful + 1
   }
+    ful = ful + 1
   }
   println("0,4,8..ACCURATE is %f%%".format(acc.toDouble/256.0))
   println("0,4,8..FULLRATE is %f%%".format(ful.toDouble/256.0))
-  var acct = 0.U
-  var fult = 0.U
+  var acct = BigInt(0)
+  var fult = BigInt(0)
   for(i <-0.U to 1024.U by 8.U)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
   step(1)
   if(peek(dut.io.prefetch_address)==i+8.U){
-    acct := acct + 1.U
+    acct = acct + 1
   }
   if((peek(dut.io.prefetch_valid)).asUInt()==1.U){
-    fult = fult + 1.U
+    fult = fult + 1
   }
 
   }
