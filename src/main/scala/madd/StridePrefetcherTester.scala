@@ -32,7 +32,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
     acct := acct + 1.U
   }
   if((peek(dut.io.prefetch_valid)).asUInt()==1.U){
-    fult := fult + 1.U
+    fult = fult + 1.U
   }
   if(true){  
     acct := acct + 1.U
