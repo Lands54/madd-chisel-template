@@ -18,7 +18,6 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   if(peek(dut.io.prefetch_valid)==1.U){
     ful = ful + 1
   }
-    ful = ful + 1
   }
   println("0,4,8..ACCURATE is %f%%".format(acc.toDouble/256.0))
   println("0,4,8..FULLRATE is %f%%".format(ful.toDouble/256.0))
@@ -32,7 +31,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   if(peek(dut.io.prefetch_address)==i+8.U){
     acct = acct + 1
   }
-  if((peek(dut.io.prefetch_valid)).asUInt()==1.U){
+  if(peek(dut.io.prefetch_valid)==(1.U).litValue(){
     fult = fult + 1
   }
 
