@@ -17,7 +17,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   var ADS = UInt(addressWidth.W)
   var PDS = UInt(addressWidth.W)
 }
-  var count = RegInit(0.U(32.W))
+  val count = RegInit(0.U(32.W))
   when(count >= 1024.U) {
     count := count % 1024.U
   }
