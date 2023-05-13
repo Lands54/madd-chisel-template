@@ -34,7 +34,9 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   if((peek(dut.io.prefetch_valid)).asUInt()==1.U){
     fult := fult + 1.U
   }
-  acct := acct + 1.U
+  if(1){  
+    acct := acct + 1.U
+  }
   }
   println("0,8,16..ACCURATE is %f%%".format(acct.toDouble/128.0))
   println("0,8,16..FULLRATE is %f%%".format(fult.toDouble/128.0))
