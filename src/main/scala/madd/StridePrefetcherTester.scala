@@ -27,7 +27,6 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
-  step(1)
   if(peek(dut.io.prefetch_address)==i+8.U){
     acct = acct + 1
   }
