@@ -15,9 +15,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   val PCS = RegInit(0.U(pcWidth.W))
   val ADS = RegInit(0.U(addressWidth.W))
   val PDS = RegInit(0.U(addressWidth.W))
-  PCS := 0.U(pcWidth.W)
-  ADS := 0.U(addressWidth.W)
-  PDS := 0.U(addressWidth.W)
+
 }
   val count = RegInit(0.U(32.W))
   when(count >= 1024.U) {
