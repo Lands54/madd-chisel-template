@@ -20,22 +20,28 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   when(count >= 1024.U) {
     count := 0.U
   }
+  var data_in = RegInit(new list(addressWidth,pcWidth))
+  data_in.ADS <= address
+  data_in.PCS <= pc
   var file = Reg(Vec(1024,new list(addressWidth,pcWidth)))
   file(count).PCS <= io.pc
   file(count).ADS <= io.address
   when(count > 0.U) {
-    file(count).PDS <= file(count).ADS - file(count-1.U).ADS
-    when(file(count).PDS === file(count - 1.U).PDS) {
-      io.prefetch_address := file(count).ADS + file(count).PDS
-      io.prefetch_valid := file(count).ADS
-    }.otherwise {
-      io.prefetch_address := file(count).ADS + file(count).PDS
-      io.prefetch_valid := file(count).ADS
-    }
+    data_in.PDS <= data_in.ADS - file(count-1.U).ADS
   }.otherwise {
-    file(count).PDS <= 4.U
-    io.prefetch_address := 4.U
-    io.prefetch_valid := 1.U
+    data_in.PDS <= 4.U
   }
-  count := count + 1.U
-}
+  file(count) <= data_in
+  when(count>0){
+  when(file(count).PDS===file(count-1).PDS){
+  io.prefetch_address := file(count).ADS+file(count).PDS
+  io.prefetch_valid := 1.U
+  }.otherwise{
+  io.prefetch_address := file(count).ADS+file(count).PDS
+  io.prefetch_valid = 0.U
+  }
+  }.otherwise{
+  io.prefetch_address := 4.U
+  io.prefetch_valid = 1.U
+  }
+  }
