@@ -2,6 +2,7 @@ package madd
 
 import chisel3._
 import chisel3.util._
+import chisel3.stage.{ChiselStage, ChiselGeneratorAnnotation}
 
 class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   val io = IO(new Bundle {
@@ -11,10 +12,10 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val prefetch_valid = Output(UInt(1.W))
   })
 
-  class List_unit extends Bundle {
-    val PCS = RegInit(0.U(pcWidth.W))
-    val ADS = RegInit(0.U(addressWidth.W))
-    val PDS = RegInit(0.U(addressWidth.W))
+  class List extends Bundle {
+    val PCS = UInt(pcWidth.W)
+    val ADS = UInt(addressWidth.W)
+    val PDS = UInt(addressWidth.W)
   }
 
   val count = RegInit(0.U(32.W))
@@ -22,18 +23,20 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     count := 0.U
   }
 
-  val data_in = RegInit(0.U.asTypeOf(new List_unit))
+  val data_in = Wire(new List)
   data_in.ADS := io.address
   data_in.PCS := io.pc
+  val file = RegInit(VecInit(Seq.fill(1024)(0.U.asTypeOf(new List))))
 
-  val file = RegInit(VecInit(Seq.fill(1024)(0.U.asTypeOf(new List_unit))))
   file(count).PCS := io.pc
   file(count).ADS := io.address
+
   when(count > 0.U) {
     data_in.PDS := data_in.ADS - file(count-1.U).ADS
   }.otherwise {
     data_in.PDS := 4.U
   }
+
   file(count) := data_in
 
   when(count > 0.U) {
@@ -49,4 +52,5 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     io.prefetch_valid := 1.U
   }
 
+  count := count + 1.U
 }
