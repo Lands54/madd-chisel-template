@@ -22,7 +22,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     count := 0.U
   }
 
-  val data_in = RegInit(0.U.asTypeOf(new list_unit))
+  val data_in = RegInit(0.U.asTypeOf(new List_unit))
   data_in.ADS := io.address
   data_in.PCS := io.pc
 
