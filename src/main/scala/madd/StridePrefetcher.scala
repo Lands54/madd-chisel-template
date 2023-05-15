@@ -44,6 +44,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   file(count) := data_in
 
   when(count > 0.U) {
+    printf("file[%d] = (PCS=%d, ADS=%d, PDS=%d)\n", count-1.U, file(count-1.U).PCS, file(count-1.U).ADS, file(count-1.U).PDS)
     when(file(count).PDS === file(count-1.U).PDS) {
       io.prefetch_address := file(count).ADS + file(count).PDS
       io.prefetch_valid := 1.U
