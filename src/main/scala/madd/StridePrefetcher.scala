@@ -26,7 +26,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   val data_in = Wire(new List)
   data_in.ADS := io.address
   data_in.PCS := io.pc
-  val file = RegInit(Vec(1024, new List))
+  val file = Wire(Vec(1024, new List))
   for (i <- 0 until 1024) {
   file(i).PCS := 0.U // 初始化 PCS 字段
   file(i).ADS := 0.U // 初始化 ADS 字段
