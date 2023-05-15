@@ -22,7 +22,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
   }
   var data_in = RegInit(new list(addressWidth,pcWidth))
   data_in.ADS <= io.address
-  data_in.PCS <= h=io.pc
+  data_in.PCS <= io.pc
   var file = Reg(Vec(1024,new list(addressWidth,pcWidth)))
   file(count).PCS <= io.pc
   file(count).ADS <= io.address
