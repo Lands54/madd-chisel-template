@@ -21,8 +21,10 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
     count := 0.U
   }
   val file = RegInit(VecInit(Seq.fill(1024)(new list(addressWidth, pcWidth))))
+  file(count).PCS <= pc
+  file(count).ADS <= address
   when(count > 0.U) {
-    file(count).PDS := file(count).ADS - file(count-1.U).ADS
+    file(count).PDS <= file(count).ADS - file(count-1.U).ADS
     when(file(count).PDS === file(count - 1.U).PDS) {
       io.prefetch_address := file(count).ADS + file(count).PDS
       io.prefetch_valid := file(count).ADS
@@ -31,6 +33,7 @@ class list(val addressWidth: Int, val pcWidth: Int) extends Bundle{
       io.prefetch_valid := file(count).ADS
     }
   }.otherwise {
+    file(count).PDS <= 4.U
     io.prefetch_address := 4.U
     io.prefetch_valid := 1.U
   }
