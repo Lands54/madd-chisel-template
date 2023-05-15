@@ -11,7 +11,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val prefetch_valid = Output(UInt(1.W))
   })
 
-  class List extends Bundle {
+  class List_unit extends Bundle {
     val PCS = RegInit(0.U(pcWidth.W))
     val ADS = RegInit(0.U(addressWidth.W))
     val PDS = RegInit(0.U(addressWidth.W))
@@ -22,11 +22,11 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     count := 0.U
   }
 
-  val data_in = RegInit(0.U.asTypeOf(new List))
+  val data_in = RegInit(0.U.asTypeOf(new list_unit))
   data_in.ADS := io.address
   data_in.PCS := io.pc
 
-  val file = RegInit(VecInit(Seq.fill(1024)(0.U.asTypeOf(new List))))
+  val file = RegInit(VecInit(Seq.fill(1024)(0.U.asTypeOf(new List_unit))))
   file(count).PCS := io.pc
   file(count).ADS := io.address
   when(count > 0.U) {
