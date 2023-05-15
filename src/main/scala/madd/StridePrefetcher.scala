@@ -26,7 +26,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   val data_in = Wire(new List)
   data_in.ADS := io.address
   data_in.PCS := io.pc
-  val file = RegInit(VecInit(Seq.fill(1024)(new List)))
+  val file = RegInit(VecInit(Seq.fill(1024)Reg(new List)))
 
   file(count).PCS := io.pc
   file(count).ADS := io.address
