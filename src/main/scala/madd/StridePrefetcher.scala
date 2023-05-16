@@ -24,15 +24,6 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   }
   }
   
-  lazy val Initialize = {
-    for (i <- 0 until 1024) {
-      file(i).PCS := 0.U 
-      file(i).ADS := 0.U 
-      file(i).PDS := 0.U 
-  }
-  printf("Initialize File ")
-  }
-
   val count = RegInit(0.U(32.W))
   when(count >= 1024.U) {
     count := 0.U
@@ -42,7 +33,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   data_in.ADS := io.address
   data_in.PCS := io.pc
   
-  val file = RegInit(VecInit(Seq.fill(1024)(0.U.asTypeOf(new List))))
+  val file = Reg(Vec(1024, new List))
   
   file(count).PCS := io.pc
   file(count).ADS := io.address
