@@ -48,11 +48,11 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
 
   when(count > 0.U) {
     printf("file[%d] = (PCS=%d, ADS=%d, PDS=%d)\n", count-1.U, file(count-1.U).PCS, file(count-1.U).ADS, file(count-1.U).PDS)
-    when(file(count).PDS === file(count-1.U).PDS) {
-      io.prefetch_address := file(count).ADS + file(count).PDS
+    when(data_in.PDS === file(count-1.U).PDS) {
+      io.prefetch_address := data_in.ADS + data_in.PDS
       io.prefetch_valid := 1.U
     }.otherwise {
-      io.prefetch_address := file(count).ADS + file(count).PDS
+      io.prefetch_address := data_in.ADS + data_in.PDS
       io.prefetch_valid := 0.U
     }
   }.otherwise {
@@ -61,7 +61,5 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   }
   printf("count=%d, io.pc=%d, io.address=%d, io.prefetch_address=%d, io.prefetch_valid=%d\n", count, io.pc, io.address, io.prefetch_address, io.prefetch_valid)
   printf("data_in = (PCS=%d, ADS=%d, PDS=%d)\n", data_in.PCS, data_in.ADS, data_in.PDS)
-  printf("file[%d] = (PCS=%d, ADS=%d, PDS=%d)\n", count, file(count).PCS, file(count).ADS, file(count).PDS)
   count := count + 1.U
-  
 }
