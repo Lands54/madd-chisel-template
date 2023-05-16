@@ -8,7 +8,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = BigInt(0)
   var ful = BigInt(0)
   var count = BigInt(0)
-  for(i <-0.U to 10239.U by 4.U)
+  for(i <-0.U to 40959.U by 4.U)
   {
   poke(dut.io.pc,i)
   poke(dut.io.address,i)
@@ -21,12 +21,12 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   step(1)
   count = count+1
   }
-  println("0,4,8..ACCURATE is %f%%".format((acc.toDouble/ful.toDouble)*100))
-  println("0,4,8..FULLRATE is %f%%".format((ful.toDouble/count.toDouble)*100))
+  println("0,4,8..ACCURATE is %f%%(num:%d)".format((acc.toDouble/ful.toDouble)*100,count))
+  println("0,4,8..FULLRATE is %f%%(num:%d)".format((ful.toDouble/count.toDouble)*100,count))
   var acct = BigInt(0)
   var fult = BigInt(0)
   var countt = BigInt(0)
-  for(i <-0.U to 10239.U by 8.U)
+  for(i <-0.U to 40959.U by 8.U)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
@@ -40,13 +40,13 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   step(1)
   countt = countt+1
   }
-  println("0,8,16..ACCURATE is %f%%(num:%d)".format((acct.toDouble/fult.toDouble)*100,count))
-  println("0,8,16..FULLRATE is %f%%(num:%d)".format((fult.toDouble/countt.toDouble)*100,count))
+  println("0,8,16..ACCURATE is %f%%(num:%d)".format((acct.toDouble/fult.toDouble)*100,countt))
+  println("0,8,16..FULLRATE is %f%%(num:%d)".format((fult.toDouble/countt.toDouble)*100,countt))
   println("————————————————————————————————")
   var total_count = count + countt
   var total_acc = acc + acct
   var total_ful = ful +fult
-  println("Total Test Number:%d\nTotal ACCURATE:%f%%\nTotal FULLRATE:%f%%".format(total_count,total_acc.toDouble/total_count.toDouble,total_ful.toDouble/total_count.toDouble))
+  println("Total Test Number:%d\nTotal ACCURATE:%f%%\nTotal FULLRATE:%f%%".format(total_count,100*total_acc.toDouble/total_count.toDouble,100*total_ful.toDouble/total_count.toDouble))
 }
 class StridePrefetcherSpec extends ChiselFlatSpec {
   private val addressWidth = 32
