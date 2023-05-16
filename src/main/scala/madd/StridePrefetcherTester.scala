@@ -7,13 +7,10 @@ import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = BigInt(0)
   var ful = BigInt(0)
-  for(i <-4.U to 32.U by 4.U)
+  for(i <-0.U to 1024.U by 4.U)
   {
   poke(dut.io.pc,i)
   poke(dut.io.address,i)
-  println("%d".format(i))
-  println("%d".format(peek(dut.io.prefetch_address)))
-  println("%d".format(peek(dut.io.prefetch_valid)))
   if(peek(dut.io.prefetch_address)==i+4){
     acc = acc + 1
   }
@@ -22,8 +19,8 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   }
   step(1)
   }
-  println("0,4,8..ACCURATE is %f%%".format(acc.toDouble/256.0))
-  println("0,4,8..FULLRATE is %f%%".format(ful.toDouble/256.0))
+  println("0,4,8..ACCURATE is %f%%".format((acc.toDouble/256.0)*100))
+  println("0,4,8..FULLRATE is %f%%".format((ful.toDouble/256.0)*100))
   var acct = BigInt(0)
   var fult = BigInt(0)
   for(i <-0.U to 1024.U by 8.U)
@@ -36,10 +33,10 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   if(peek(dut.io.prefetch_valid)==1){
     fult = fult + 1
   }
-
+  step(1)
   }
-  println("0,8,16..ACCURATE is %f%%".format(acct.toDouble/128.0))
-  println("0,8,16..FULLRATE is %f%%".format(fult.toDouble/128.0))
+  println("0,8,16..ACCURATE is %f%%".format((acct.toDouble/128.0)*100))
+  println("0,8,16..FULLRATE is %f%%".format((fult.toDouble/128.0)*100))
 }
 class StridePrefetcherSpec extends ChiselFlatSpec {
   private val addressWidth = 32
