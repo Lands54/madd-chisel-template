@@ -37,7 +37,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   data_in.ADS := io.address
   data_in.PCS := io.pc
   
-  val file = Wire(Vec(1024, new List))
+  lazy val file = Wire(Vec(1024, new List))
   Initialize
   
   file(count).PCS := io.pc
