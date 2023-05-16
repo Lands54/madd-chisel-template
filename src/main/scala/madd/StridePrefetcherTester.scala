@@ -8,7 +8,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acc = BigInt(0)
   var ful = BigInt(0)
   var count = BigInt(0)
-  for(i <-0.U to 1023.U by 4.U)
+  for(i <-0.U to 10239.U by 4.U)
   {
   poke(dut.io.pc,i)
   poke(dut.io.address,i)
@@ -26,7 +26,7 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   var acct = BigInt(0)
   var fult = BigInt(0)
   var countt = BigInt(0)
-  for(i <-0.U to 1023.U by 8.U)
+  for(i <-0.U to 10239.U by 8.U)
   {
   poke(dut.io.pc, i)
   poke(dut.io.address,i)
@@ -40,8 +40,13 @@ class StridePrefetcherTester(dut:StridePrefetcher)extends PeekPokeTester(dut) {
   step(1)
   countt = countt+1
   }
-  println("0,8,16..ACCURATE is %f%%".format((acct.toDouble/fult.toDouble)*100))
-  println("0,8,16..FULLRATE is %f%%".format((fult.toDouble/countt.toDouble)*100))
+  println("0,8,16..ACCURATE is %f%%(num:%d)".format((acct.toDouble/fult.toDouble)*100,count))
+  println("0,8,16..FULLRATE is %f%%(num:%d)".format((fult.toDouble/countt.toDouble)*100,count))
+  println("————————————————————————————————")
+  var total_count = count + countt
+  var total_acc = acc + acct
+  var total_ful = ful +fult
+  println("Total Test Number:%d\nTotal ACCURATE:%f%%\nTotal FULLRATE:%f%%".format(total_count,total_acc.toDouble/total_count.toDouble,total_ful.toDouble/total_count.toDouble))
 }
 class StridePrefetcherSpec extends ChiselFlatSpec {
   private val addressWidth = 32
