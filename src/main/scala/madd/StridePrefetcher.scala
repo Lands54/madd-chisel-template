@@ -17,7 +17,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val PCS = UInt(pcWidth.W)
     val ADS = UInt(addressWidth.W)
     val PDS = UInt(addressWidth.W)
-    def this() = {
+    def List() = {
       PCS := 0.U
       ADS := 0.U
       PDS := 0.U
