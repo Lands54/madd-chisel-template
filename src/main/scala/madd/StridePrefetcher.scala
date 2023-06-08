@@ -10,7 +10,7 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
     val pc = Input(UInt(pcWidth.W))
     val address = Input(UInt(addressWidth.W))
     val prefetch_address = Output(UInt(addressWidth.W))
-    val prefetch_valid = Output(UInt(1.W))
+    val prefetch_valid = Output(Bool())
   })
   
   class List extends Bundle {
@@ -35,9 +35,6 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   
   val file = Reg(Vec(1024, new List))
   
-  file(count).PCS := io.pc
-  file(count).ADS := io.address
-
   when(count > 0.U) {
     data_in.PDS := data_in.ADS - file(count-1.U).ADS
   }.otherwise {
@@ -49,14 +46,14 @@ class StridePrefetcher(val addressWidth: Int, val pcWidth: Int) extends Module {
   when(count > 0.U) {
     when(data_in.PDS === file(count-1.U).PDS) {
       io.prefetch_address := data_in.ADS + data_in.PDS
-      io.prefetch_valid := 1.U
+      io.prefetch_valid := true.B
     }.otherwise {
       io.prefetch_address := data_in.ADS + data_in.PDS
-      io.prefetch_valid := 0.U
+      io.prefetch_valid := false.B
     }
   }.otherwise {
     io.prefetch_address := 4.U
-    io.prefetch_valid := 1.U
+    io.prefetch_valid := true.B
   }
   count := count + 1.U
 }
